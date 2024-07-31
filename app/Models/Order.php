@@ -11,7 +11,7 @@ class Order extends Model
 {
     use HasFactory;
     protected $table = "orders";
-
+    protected $fillable = ['folio', 'numero_muestras', 'fecha_recepcion', 'hora_recepcion'];
     public function samples (): HasMany
     {
         return $this->hasMany(Sample::class, 'order_id', 'id');

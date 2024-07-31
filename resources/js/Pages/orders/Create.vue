@@ -2,12 +2,19 @@
     import { useForm } from '@inertiajs/vue3';
     import { Alert, Form, FormItem, Input, InputNumber, Col, Row } from 'ant-design-vue';
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+    const props = defineProps({
+        errors: Object,
+    });
     const formState = useForm({
         folio: null,
         fecha_recepcion: null,
         hora_recepcion: null,
         numero_muestras: null,
     });
+    const handleSendData = () => {
+        formState.post('/orders');
+    };
+    console.log(props.errors);
 </script>
 <template>
     <AuthenticatedLayout>
@@ -20,17 +27,23 @@
                             <Form 
                                 :model="formState"
                                 name="create_orders"
-                                @finish=""
+                                @finish="handleSendData"
                                 layout="vertical">
                                 <Row>
                                     <Col :span="11">
                                         <FormItem
-                                            label="Tipo de muestra"
-                                            name="tipo_muestra"
-                                            :rules="[{ required: true, message: 'Ingrese el tipo de muestra' }]">
+                                            label="Folio"
+                                            name="folio"
+                                            :rules="[{ required: true, message: 'Ingrese el folio' }]">
                                             <Input 
-                                                v-model:value="formState.tipo_muestra"/>
+                                                v-model:value="formState.folio"/>
                                         </FormItem>
+                                        <template v-if="Object.keys(errors).includes('folio')">
+                                            <Alert
+                                                type="error"
+                                                :message="errors['folio']"
+                                                />
+                                        </template>
                                     </Col>
                                     <Col :span="11" :offset="1">
                                         <FormItem
@@ -43,6 +56,12 @@
                                                 :max="30"
                                                 class="w-full"/>
                                         </FormItem>
+                                        <template v-if="Object.keys(errors).includes('numero_muestras')">
+                                            <Alert
+                                                type="error"
+                                                :message="errors['numero_muestras']"
+                                                closable/>
+                                        </template>
                                     </Col>
                                 </Row>
                                 <Row>
@@ -55,16 +74,27 @@
                                                 v-model:value="formState.fecha_recepcion"
                                                 type="date"/>
                                         </FormItem>
+                                        <template v-if="Object.keys(errors).includes('fecha_recepcion')">
+                                            <Alert
+                                                type="error"
+                                                :message="errors['fecha_recepcion']"
+                                                closable/>
+                                        </template>
                                     </Col>
                                     <Col :span="11" :offset="1">
                                         <FormItem
                                             label="Hora de recepcion"
                                             name="hora_recepcion"
-                                            :rules="[{ required: true, message: 'Ingrese la hora de recepcion'}]">
+                                            :rules="[]">
                                             <Input 
                                                 v-model:value="formState.hora_recepcion"
                                                 type="time"/>
                                         </FormItem>
+                                            <Alert
+                                                v-if="Object.keys(errors).includes('hora_recepcion')"
+                                                type="error"
+                                                :message="errors['hora_recepcion']"
+                                                />
                                     </Col>
                                 </Row>
                                 <button class="bg-green-500 text-white rounded py-2 px-4">Crear</button>

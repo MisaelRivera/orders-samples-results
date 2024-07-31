@@ -12,7 +12,7 @@ class OrdersController extends Controller
     public function index ()
     {
         $orders = Order::with(['samples'])
-            ->orderBy('id', 'desc')
+            ->orderBy('order_id', 'desc')
             ->limit(40)
             ->get();
         $count = Order::count();
@@ -26,14 +26,15 @@ class OrdersController extends Controller
 
     public function store (Request $request)
     {
+        
         $order = $request->validate([
-            'tipo_muestra' => 'required',
+            'folio' => 'required',
             'fecha_recepcion' => 'required',
             'hora_recepcion' => 'required',
             'numero_muestras' => 'required|min:0|max:30',
         ],
         [
-          'tipo_muestra.required' => 'Igrese el tipo de muestra',  
+          'folio.required' => 'Igrese el folio de muestra',  
           'fecha_recepcion.required' => 'Igrese la fecha de recepcion',  
           'hora_recepcion.required' => 'Igrese la hora de recepcion',  
           'numero_muestras.required' => 'Igrese el numero de muestras',  
@@ -43,6 +44,6 @@ class OrdersController extends Controller
 
         $created_order = Order::create($order);
         $request->session()->flash('message', 'La orden ha sido creada correctamente.');
-        return redirect("/samples/create/$created_order->id/$created_order->numero_muestras");
+        return redirect()->route('samples.create', [$created_order->id, $created_order->numero_muestras]);
     }
 }

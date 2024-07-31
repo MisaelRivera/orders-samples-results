@@ -145,7 +145,7 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink :href="route('orders.index')">
                                             Ordenes
                                         </DropdownLink>
-                                        <DropdownLink>
+                                        <DropdownLink href="">
                                             Resultados
                                         </DropdownLink>
                                     </template>

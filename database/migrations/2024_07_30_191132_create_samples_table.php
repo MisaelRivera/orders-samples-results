@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('samples', function (Blueprint $table) {
-            $table->id();
+            $table->id('sample_id');
+            $table->foreignId('order_id')->references('order_id')->on('orders');
             $table->string("tipo_muestra", 100);
             $table->string("parametros", 100);
             $table->integer('numero_muestra');

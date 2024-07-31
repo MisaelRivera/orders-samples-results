@@ -10,6 +10,8 @@ class Parameter extends Model
 {
     use HasFactory;
     protected $table = "parameters";
+    protected $primaryKey = 'parameter_id';
+    protected $fillable = ['name'];
 
     public function units(): HasMany 
     {

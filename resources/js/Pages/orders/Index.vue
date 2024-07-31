@@ -3,6 +3,7 @@
     import { Link } from '@inertiajs/vue3';
     import { Alert, Modal, Col, Row } from 'ant-design-vue';
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+    import { createRange } from '@/helpers/general';
     const props = defineProps({
         totalItemsProp: {
             type: Number

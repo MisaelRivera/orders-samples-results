@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class SamplesController extends Controller
 {
@@ -14,5 +15,7 @@ class SamplesController extends Controller
             'order_id' => $order_id,
             'samples_number' => $samples_number
         ];
+
+        return Inertia::render('samples/Create', $data);   
     }
 }

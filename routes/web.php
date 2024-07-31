@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SamplesController;
+use App\Http\Controllers\ParametersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -40,7 +42,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::prefix('/samples')->group(function () {
         Route::get('/', [OrdersController::class, 'index'])->name('samples.index');
-        Route::get('/create/{order_id}/{samples_number}', [OrdersController::class, 'create']);
+        Route::get('/create/{order_id}/{samples_number}', [SamplesController::class, 'create'])->name('samples.create');
         Route::get('/{id}/show', [OrdersController::class, 'show']);
         Route::post('/', [OrdersController::class, 'store']);
         Route::get('/{id}/edit', [OrdersController::class, 'edit']);
@@ -51,13 +53,13 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::prefix('/parameters')->group(function () {
-        Route::get('/', [OrdersController::class, 'index'])->name('parameters.index');
-        Route::get('/create', [OrdersController::class, 'create']);
-        Route::get('/{id}/show', [OrdersController::class, 'show']);
-        Route::post('/', [OrdersController::class, 'store']);
-        Route::get('/{id}/edit', [OrdersController::class, 'edit']);
-        Route::put('/', [OrdersController::class, 'update']);
-        Route::delete('/', [OrdersController::class, 'destroy']);
+        Route::get('/', [ParametersController::class, 'index'])->name('parameters.index');
+        Route::get('/create', [ParametersController::class, 'create']);
+        Route::get('/{id}/show', [ParametersController::class, 'show'])->name('parameters.show');
+        Route::post('/', [ParametersController::class, 'store']);
+        Route::get('/{id}/edit', [ParametersController::class, 'edit']);
+        Route::put('/{id}', [ParametersController::class, 'update']);
+        Route::delete('/{id}', [ParametersController::class, 'destroy']);
     });
 });
 
