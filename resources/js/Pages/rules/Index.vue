@@ -9,25 +9,25 @@
         totalItemsProp: {
             type: Number
         },
-        unitsProp: {
+        rulesProp: {
             type: Object
         }
     });
-    const units = ref(props.unitsProp);
-    const deleteUnit = reactive({
-        unit_id: null,
+    const rules = ref(props.rulesProp);
+    const deleteRule = reactive({
+        rule_id: null,
         name: null
     });
     const isVisibleDeleteModal = ref(false);
-    const handleOpenDeleteModal = (unit) => {
-        deleteUnit.unit_id = unit.unit_id;
-        deleteUnit.name = unit.name;
+    const handleOpenDeleteModal = (rule) => {
+        deleteRule.rule_id = rule.rule_id;
+        deleteRule.name = rule.name;
         isVisibleDeleteModal.value = true;
     };
-    const handleDeleteUnit = async() => {
+    const handleDeleteRule = async() => {
         isVisibleDeleteModal.value = false;
         try {
-            router.visit(`/units/${deleteUnit.unit_id}`, { method: 'delete' });
+            router.visit(`/rules/${deleteRule.rule_id}`, { method: 'delete' });
         } catch (e) {
             console.log(e);
         }
@@ -43,38 +43,38 @@
                     :message="pageUse.props.flash.message"
                     closable/>
                 <h1 class="font-bold text-center flex items-center">
-                    Unidades
-                    <Link href="/units/create">
+                    Normas
+                    <Link href="/rules/create">
                         <i class="fas fa-plus w-6 h-6 rounded-full bg-green-500 text-white py-1 ml-2"></i>
                     </Link>
                 </h1>
                 <table class="border mt-1">
                     <thead>
                         <tr>
-                            <th class="border py-2 px-4 bg-slate-600 text-white">Unidad</th>
+                            <th class="border py-2 px-4 bg-slate-600 text-white">Norma</th>
                             <th class="border py-2 px-4 bg-slate-600 text-white"></th>
                             <th class="border py-2 px-4 bg-slate-600 text-white"></th>
                             <th class="border py-2 px-4 bg-slate-600 text-white"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="unit in units">
+                        <tr v-for="rule in rules">
                             <td class="border py-2 px-4 bg-slate-100">
-                                {{ unit.name }}
+                                {{ rule.name }}
                             </td>
                             <td class="border py-2 px-4 bg-slate-100">
-                                <Link :href="`/units/${unit.unit_id}/show`">
+                                <Link :href="`/rules/${rule.rule_id}/show`">
                                     <i class="fas fa-eye text-blue-400"></i>
                                 </Link>
                             </td>
                             <td class="border py-2 px-4 bg-slate-100">
-                                <Link :href="`/units/${unit.unit_id}/edit`">
+                                <Link :href="`/rules/${rule.rule_id}/edit`">
                                     <i class="fas fa-edit text-blue-500"></i>
                                 </Link>
                             </td>
                             <td class="border py-2 px-4 bg-slate-100">
                                 <button
-                                    @click="() => handleOpenDeleteModal(unit)">
+                                    @click="() => handleOpenDeleteModal(rule)">
                                     <i class="fas fa-trash text-white bg-red-500 p-1 rounded-full"></i>
                                 </button>
                             </td>
@@ -84,9 +84,9 @@
             </Col>
         </Row>
         <Modal
-            :title="`Eliminar parametro ${deleteUnit.name}`"
+            :title="`Eliminar parametro ${deleteRule.name}`"
             v-model:open="isVisibleDeleteModal"
-            @ok="handleDeleteUnit">
+            @ok="handleDeleteRule">
 
         </Modal>
     </AuthenticatedLayout>

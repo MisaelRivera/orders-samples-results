@@ -9,6 +9,8 @@ class Unit extends Model
 {
     use HasFactory;
     protected $table = "units";
+    protected $primaryKey = 'unit_id';
+    protected $guarded = [];
 
     public function parameter ()
     {

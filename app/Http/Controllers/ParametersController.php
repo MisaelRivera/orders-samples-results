@@ -66,9 +66,7 @@ class ParametersController extends Controller
         $parameter = Parameter::find($id);
         $parameter_name = $parameter->name;
         $parameter->delete();
-        $parameters = Parameter::limit(40)
-            ->get();
         $request->session()->flash('message', 'Se ha eliminado el parametro ' . $parameter_name . ' correctamente');
-        return response()->json($parameters);
+        return redirect()->route('parameters.index');
     }
 }

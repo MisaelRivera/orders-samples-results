@@ -9,6 +9,8 @@ class Method extends Model
 {
     use HasFactory;
     protected $table = "methods";
+    protected $primaryKey = 'method_id';
+    protected $guarded = [];
 
     public function parameter ()
     {

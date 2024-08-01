@@ -9,6 +9,7 @@ class Lcp extends Model
 {
     use HasFactory;
     protected $table = "lcps";
+    protected $primaryKey = 'lcp_id';
 
     public function parameter ()
     {

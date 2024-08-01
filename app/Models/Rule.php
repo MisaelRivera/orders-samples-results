@@ -9,4 +9,6 @@ class Rule extends Model
 {
     use HasFactory;
     protected $table = "rules";
+    protected $primaryKey = 'rule_id';
+    protected $guarded = [];
 }

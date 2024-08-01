@@ -9,25 +9,25 @@
         totalItemsProp: {
             type: Number
         },
-        unitsProp: {
+        methodsProp: {
             type: Object
         }
     });
-    const units = ref(props.unitsProp);
-    const deleteUnit = reactive({
-        unit_id: null,
+    const methods = ref(props.methodsProp);
+    const deleteMethod = reactive({
+        method_id: null,
         name: null
     });
     const isVisibleDeleteModal = ref(false);
-    const handleOpenDeleteModal = (unit) => {
-        deleteUnit.unit_id = unit.unit_id;
-        deleteUnit.name = unit.name;
+    const handleOpenDeleteModal = (method) => {
+        deleteMethod.method_id = method.method_id;
+        deleteMethod.name = method.name;
         isVisibleDeleteModal.value = true;
     };
-    const handleDeleteUnit = async() => {
+    const handleDeleteMethod = async() => {
         isVisibleDeleteModal.value = false;
         try {
-            router.visit(`/units/${deleteUnit.unit_id}`, { method: 'delete' });
+            router.visit(`/methods/${deleteMethod.method_id}`, { method: 'delete' });
         } catch (e) {
             console.log(e);
         }
@@ -43,38 +43,38 @@
                     :message="pageUse.props.flash.message"
                     closable/>
                 <h1 class="font-bold text-center flex items-center">
-                    Unidades
-                    <Link href="/units/create">
+                    Metodos
+                    <Link href="/methods/create">
                         <i class="fas fa-plus w-6 h-6 rounded-full bg-green-500 text-white py-1 ml-2"></i>
                     </Link>
                 </h1>
                 <table class="border mt-1">
                     <thead>
                         <tr>
-                            <th class="border py-2 px-4 bg-slate-600 text-white">Unidad</th>
+                            <th class="border py-2 px-4 bg-slate-600 text-white">Metodo</th>
                             <th class="border py-2 px-4 bg-slate-600 text-white"></th>
                             <th class="border py-2 px-4 bg-slate-600 text-white"></th>
                             <th class="border py-2 px-4 bg-slate-600 text-white"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="unit in units">
+                        <tr v-for="method in methods">
                             <td class="border py-2 px-4 bg-slate-100">
-                                {{ unit.name }}
+                                {{ method.name }}
                             </td>
                             <td class="border py-2 px-4 bg-slate-100">
-                                <Link :href="`/units/${unit.unit_id}/show`">
+                                <Link :href="`/methods/${method.method_id}/show`">
                                     <i class="fas fa-eye text-blue-400"></i>
                                 </Link>
                             </td>
                             <td class="border py-2 px-4 bg-slate-100">
-                                <Link :href="`/units/${unit.unit_id}/edit`">
+                                <Link :href="`/methods/${method.method_id}/edit`">
                                     <i class="fas fa-edit text-blue-500"></i>
                                 </Link>
                             </td>
                             <td class="border py-2 px-4 bg-slate-100">
                                 <button
-                                    @click="() => handleOpenDeleteModal(unit)">
+                                    @click="() => handleOpenDeleteModal(method)">
                                     <i class="fas fa-trash text-white bg-red-500 p-1 rounded-full"></i>
                                 </button>
                             </td>
@@ -84,9 +84,9 @@
             </Col>
         </Row>
         <Modal
-            :title="`Eliminar parametro ${deleteUnit.name}`"
+            :title="`Eliminar parametro ${deleteMethod.name}`"
             v-model:open="isVisibleDeleteModal"
-            @ok="handleDeleteUnit">
+            @ok="handleDeleteMethod">
 
         </Modal>
     </AuthenticatedLayout>

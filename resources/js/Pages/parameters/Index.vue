@@ -1,6 +1,6 @@
 <script setup>
     import { ref, reactive } from 'vue';
-    import { Link, usePage } from '@inertiajs/vue3';
+    import { Link, usePage, router } from '@inertiajs/vue3';
     import { Alert, Modal, Col, Row } from 'ant-design-vue';
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import { createRange } from '@/helpers/general';
@@ -27,9 +27,7 @@
     const handleDeleteParameter = async() => {
         isVisibleDeleteModal.value = false;
         try {
-            const res = await axios.delete(`/parameters/${deleteParameter.parameter_id}`);
-            console.log(res);
-            parameters.value = res.data;
+            router.visit(`/parameters/${deleteParameter.parameter_id}`, { method: 'delete' });
         } catch (e) {
             console.log(e);
         }
