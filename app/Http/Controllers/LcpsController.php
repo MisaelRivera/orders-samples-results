@@ -26,7 +26,8 @@ class LcpsController extends Controller
     public function store (Request $request)
     {
         $lcp = $request->validate([
-            'name' => 'required|unique:lcps,name'
+            'is_numeric' => 'boolean',
+            'value' => 'required',
         ]);
         
         Lcp::create($lcp);
@@ -49,22 +50,24 @@ class LcpsController extends Controller
     public function update (Request $request, $id)
     {
         $validated_lcp = $request->validate([
-            'name' => 'required|unique:lcps,name'
+            'value' => 'required',
+            'required' => 'boolean',
         ]);
 
         $lcp = Lcp::find($id);
-        $lcp->name = $validated_lcp['name'];
+        $lcp->value = $validated_lcp['value'];
+        $lcp->is_numeric = $validated_lcp['is_numeric'];
         $lcp->save();
-        $request->session()->flash('message', 'Se ha editado el lcp ' . $lcp->name);
+        $request->session()->flash('message', 'Se ha editado el lcp ' . $lcp->value);
         return redirect()->route('lcps.show', $id);
     }
 
     public function destroy (Request $request, $id)
     {
         $lcp = Lcp::find($id);
-        $lcp_name = $lcp->name;
+        $lcp_value = $lcp->value;
         $lcp->delete();
-        $request->session()->flash('message', 'Se ha eliminado el lcp ' . $lcp_name . ' correctamente');
+        $request->session()->flash('message', 'Se ha eliminado el lcp ' . $lcp_value . ' correctamente');
         return redirect()->route('lcps.index');
     }
 }

@@ -43,7 +43,7 @@
                     :message="pageUse.props.flash.message"
                     closable/>
                 <h1 class="font-bold text-center flex items-center">
-                    Metodos
+                    LCPs
                     <Link href="/lcps/create">
                         <i class="fas fa-plus w-6 h-6 rounded-full bg-green-500 text-white py-1 ml-2"></i>
                     </Link>
@@ -51,7 +51,7 @@
                 <table class="border mt-1">
                     <thead>
                         <tr>
-                            <th class="border py-2 px-4 bg-slate-600 text-white">Metodo</th>
+                            <th class="border py-2 px-4 bg-slate-600 text-white">lcp</th>
                             <th class="border py-2 px-4 bg-slate-600 text-white"></th>
                             <th class="border py-2 px-4 bg-slate-600 text-white"></th>
                             <th class="border py-2 px-4 bg-slate-600 text-white"></th>
@@ -60,7 +60,7 @@
                     <tbody>
                         <tr v-for="lcp in lcps">
                             <td class="border py-2 px-4 bg-slate-100">
-                                {{ lcp.name }}
+                                {{ lcp.value }}
                             </td>
                             <td class="border py-2 px-4 bg-slate-100">
                                 <Link :href="`/lcps/${lcp.lcp_id}/show`">

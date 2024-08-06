@@ -14,6 +14,6 @@ class Method extends Model
 
     public function parameter ()
     {
-        return $this->belongsTo(Parameter::class);
+        return $this->belongsTo(Parameter::class, 'methods_parameters', 'method_id', 'parameter_id');
     }
 }

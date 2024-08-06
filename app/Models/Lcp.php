@@ -10,9 +10,10 @@ class Lcp extends Model
     use HasFactory;
     protected $table = "lcps";
     protected $primaryKey = 'lcp_id';
+    protected $guarded = [];
 
     public function parameter ()
     {
-        return $this->belongsTo(Parameter::class);
+        return $this->belongsToMany(Parameter::class, 'lcps_parameters', 'lcp_id', 'parameter_id');
     }
 }

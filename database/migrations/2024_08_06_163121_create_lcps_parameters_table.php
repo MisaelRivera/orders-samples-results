@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lcps', function (Blueprint $table) {
-            $table->id('lcp_id');
+        Schema::create('lcps_parameters', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('lcp_id_foreign')->references('lcp_id')->on('lcps');
             $table->foreignId('parameter_id_foreign')->references('parameter_id')->on('parameters');
-            $table->string('value', 50);
-            $table->boolean('is_numeric');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lcps');
+        Schema::dropIfExists('lcps_parameters');
     }
 };

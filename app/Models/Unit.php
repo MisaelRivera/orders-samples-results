@@ -14,6 +14,6 @@ class Unit extends Model
 
     public function parameter ()
     {
-        return $this->belongsTo(Parameter::class);
+        return $this->belongsTo(Parameter::class, 'units_parameters', 'unit_id', 'parameter_id');
     }
 }
