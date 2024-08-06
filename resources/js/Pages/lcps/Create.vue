@@ -9,7 +9,7 @@
         name: null,
     });
     const handleSendData = () => {
-        formState.post('/methods');
+        formState.post('/lcps');
     };
     console.log(props.errors);
 </script>
@@ -23,7 +23,7 @@
                         <Col :span="24">
                             <Form 
                                 :model="formState"
-                                name="create_methods"
+                                name="create_lcps"
                                 @finish="handleSendData"
                                 layout="vertical">
                                 <Row>
@@ -35,11 +35,10 @@
                                             <Input 
                                                 v-model:value="formState.name"/>
                                         </FormItem>
-                                        <Alert
-                                            v-if="Object.keys(errors).includes('name')"
-                                            type="error"
-                                            :message="errors['name']"
-                                            />
+                                        <p
+                                            v-if="Object.keys(errors).includes('name')">
+                                            {{ errors['name'] }}
+                                        </p>
                                     </Col>
                                 </Row>
                                 <button class="bg-green-500 text-white rounded py-2 px-4">Crear</button>

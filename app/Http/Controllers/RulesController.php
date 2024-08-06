@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Parameter;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Rule;
@@ -37,7 +38,14 @@ class RulesController extends Controller
     public function show ($id)
     {
         $rule = Rule::find($id);
-        return Inertia::render('rules/Show', ['rule' => $rule]);
+        $parameters = Parameter::all();
+        $parameters = $parameters->map(function ($parameter) {
+            return ['value' => $parameter->name, 'key' => $parameter->parameter_id];
+        });
+        return Inertia::render('rules/Show', [
+            'rule' => $rule,
+            'parameters' => $parameters
+        ]);
     }
 
     public function edit ($id)

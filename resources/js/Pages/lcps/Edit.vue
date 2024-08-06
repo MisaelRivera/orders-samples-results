@@ -4,16 +4,16 @@
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     const props = defineProps({
         errors: Object,
-        method: {
+        lcp: {
             type: Object
         }
     });
     const formState = useForm({
-        name: props.method.name,
+        name: props.lcp.name,
     });
     const handleSendData = (id) => {
         console.log(id);
-        formState.put(`/methods/${id}`);
+        formState.put(`/lcps/${id}`);
     };
 </script>
 <template>
@@ -22,17 +22,17 @@
             <Col :span="20" :offset="2">
                 <div class="bg-white p-5">
                     <h1 class="text-xl font-bold mt-2">
-                        <Link href="/methods">
+                        <Link href="/lcps">
                             <i class="fas fa-long-arrow-alt-left"></i>
                         </Link>
-                        Editar {{ method.name }}
+                        Editar {{ lcp.name }}
                     </h1>
                     <Row>
                         <Col :span="24">
                             <Form 
                                 :model="formState"
                                 name="edit_orders"
-                                @finish="() => handleSendData(method.method_id)"
+                                @finish="() => handleSendData(lcp.lcp_id)"
                                 layout="vertical">
                                 <Row>
                                     <Col :span="11">
