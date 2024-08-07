@@ -28,11 +28,11 @@ class LcpsController extends Controller
         $lcp = $request->validate([
             'is_numeric' => 'boolean',
             'value' => 'required',
+            'parameter_id_foreign' => 'required|exists:parameters,parameter_id'
         ]);
-        
         Lcp::create($lcp);
         $request->session()->flash('message', 'Se ha creado un lcp correctamente');
-        return redirect()->route('lcps.index');
+        return redirect()->route('parameters.show', $lcp['parameter_id_foreign']);
     }
 
     public function show ($id)

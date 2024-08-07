@@ -38,7 +38,7 @@ class ParametersController extends Controller
 
     public function show ($id)
     {
-        $parameter = Parameter::find($id);
+        $parameter = Parameter::with('lcps')->find($id);
         return Inertia::render('parameters/Show', ['parameter' => $parameter]);
     }
 

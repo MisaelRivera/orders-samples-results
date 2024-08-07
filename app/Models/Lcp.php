@@ -14,6 +14,6 @@ class Lcp extends Model
 
     public function parameter ()
     {
-        return $this->belongsToMany(Parameter::class, 'lcps_parameters', 'lcp_id', 'parameter_id');
+        return $this->belongsTo(Parameter::class, 'parameter_id_foreign', 'parameter_id');
     }
 }

@@ -24,8 +24,8 @@ class Parameter extends Model
         return $this->hasMany(Method::class, 'methods_parameters', 'parameter_id', 'method_id');
     }
 
-    public function lcps(): BelongsToMany 
+    public function lcps(): HasMany 
     {
-        return $this->belongsToMany(Lcp::class, 'lcps_parameters', 'parameter_id', 'lcp_id');
+        return $this->hasMany(Lcp::class, 'parameter_id_foreign', 'parameter_id');
     }
 }
